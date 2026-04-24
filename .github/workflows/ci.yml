@@ -29,13 +29,19 @@ jobs:
       - name: Configure Poetry
         run: |
           poetry config virtualenvs.in-project true
-          # poetry config virtualenvs.create true  <-- This is default, usually unnecessary
 
-      - name: Force Refresh Lock File
-        # We delete the old file so Poetry 2.0 doesn't crash on the missing metadata
+      - name: Install System Dependencies
         run: |
-          rm -f poetry.lock
-          poetry lock
+          sudo apt-get update
+          # Install LLVM for llvmlite and compilers for CVXPY solvers
+          sudo apt-get install -y llvm-15-dev clang build-essential gfortran
+
+      - name: Configure Environment
+        # This ensures the Poetry Sync step knows exactly which LLVM to use for the build
+        run: |
+          echo "LLVM_CONFIG=/usr/bin/llvm-config-15" >> $GITHUB_ENV
+          echo "CC=clang" >> $GITHUB_ENV
+          echo "CXX=clang++" >> $GITHUB_ENV
 
       - name: Cache virtualenv
         uses: actions/cache@v4
@@ -48,8 +54,10 @@ jobs:
       # --sync guarantees the installed state matches pyproject.toml exactly,
       # even when restoring a cached venv from a slightly different lock.
       - name: Install package + all dependencies
+        # Use --no-interaction and --no-root to separate environment prep
         # In Poetry 2.0, 'poetry sync' replaces 'install --sync'
-        run: poetry sync --with dev
+        run: |
+          poetry sync --with dev --no-interaction
 
       - name: Verify systematic_macro importable
         run: poetry run python -c "import systematic_macro; print('OK', edgar_alpha.__version__)"
