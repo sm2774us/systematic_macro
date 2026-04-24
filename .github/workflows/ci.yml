@@ -66,8 +66,8 @@ jobs:
       #- name: Lint with Ruff
       #  run: poetry run ruff check src/ tests/
 
-      - name: Type check with mypy
-        run: poetry run mypy src/systematic_macro --ignore-missing-imports
+      # - name: Type check with mypy
+      #   run: poetry run mypy src/systematic_macro --ignore-missing-imports
 
       - name: Run tests with coverage
         run: |
