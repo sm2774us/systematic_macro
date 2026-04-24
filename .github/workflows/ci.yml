@@ -33,7 +33,7 @@ jobs:
 
       # Generate lock file if missing (first-time clone without poetry.lock)
       - name: Generate lock file
-        run: poetry lock --no-update
+        run: poetry lock
 
       - name: Cache virtualenv
         uses: actions/cache@v4
