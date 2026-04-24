@@ -60,7 +60,7 @@ jobs:
           poetry sync --with dev --no-interaction
 
       - name: Verify systematic_macro importable
-        run: poetry run python -c "import systematic_macro; print('OK', edgar_alpha.__version__)"
+        run: poetry run python -c "import systematic_macro; print('OK', systematic_macro.__version__)"
 
       - name: Lint with Ruff
         run: poetry run ruff check src/ tests/
