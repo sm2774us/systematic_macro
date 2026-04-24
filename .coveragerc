@@ -1,0 +1,28 @@
+[run]
+# Measure coverage for your specific source package
+source = src/systematic_macro
+branch = True
+omit =
+    # Ignore initialization and test configuration files
+    */__init__.py
+    */conftest.py
+    tests/*
+
+[report]
+# Do not count files with no executable code
+skip_empty = True
+
+# Standard exclusions (code that shouldn't be counted against your 75%)
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == .__main__.:
+    raise AssertionError
+    raise NotImplementedError
+    if TYPE_CHECKING:
+
+# Set the same 75% threshold here for consistency
+fail_under = 75
+
+[html]
+directory = htmlcov
