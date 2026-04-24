@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  test:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/src
+    command: pytest tests/ -v --tb=short --cov=systematic_macro --cov-report=term-missing
+
+  notebook:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/src
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/app/notebooks
