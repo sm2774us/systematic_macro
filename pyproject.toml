@@ -23,7 +23,9 @@ loguru = "^0.7"
 rich = "^13.7"
 joblib = "^1.4"
 cvxpy = "^1.5"
-numba = "^0.60"
+# Force 3.13 compatible versions
+numba = "^0.61.0"
+llvmlite = "^0.44.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2"
