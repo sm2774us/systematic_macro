@@ -29,11 +29,13 @@ jobs:
       - name: Configure Poetry
         run: |
           poetry config virtualenvs.in-project true
-          poetry config virtualenvs.create true
+          # poetry config virtualenvs.create true  <-- This is default, usually unnecessary
 
-      # Generate lock file if missing (first-time clone without poetry.lock)
-      - name: Generate lock file
-        run: poetry lock
+      - name: Force Refresh Lock File
+        # We delete the old file so Poetry 2.0 doesn't crash on the missing metadata
+        run: |
+          rm -f poetry.lock
+          poetry lock
 
       - name: Cache virtualenv
         uses: actions/cache@v4
@@ -46,7 +48,8 @@ jobs:
       # --sync guarantees the installed state matches pyproject.toml exactly,
       # even when restoring a cached venv from a slightly different lock.
       - name: Install package + all dependencies
-        run: poetry install --with dev --sync
+        # In Poetry 2.0, 'poetry sync' replaces 'install --sync'
+        run: poetry sync --with dev
 
       - name: Verify systematic_macro importable
         run: poetry run python -c "import systematic_macro; print('OK', edgar_alpha.__version__)"
