@@ -351,10 +351,9 @@ class WalkForwardEngine:
             "ic_ratio": rolling_ic.abs() / abs(is_ic_baseline),
         })
         monitor["below_threshold"] = monitor["ic_ratio"] < ratio_threshold
-        monitor["flagged"] = (
-            monitor["below_threshold"]
-            & monitor["below_threshold"].shift(1).fillna(False)
-        )
+        below = monitor["below_threshold"].to_numpy(dtype=bool)
+        shifted = np.concatenate([[False], below[:-1]])
+        monitor["flagged"] = below & shifted
         n_flags = int(monitor["flagged"].sum())
         if n_flags > 0:
             logger.warning(
