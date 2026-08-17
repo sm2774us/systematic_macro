@@ -1,7 +1,7 @@
 # Systematic Macro 2026
 ### Carry · Momentum · Flow — FX · Futures · Equities
 
-[![CI](https://github.com/your-org/systematic-macro-2026/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/systematic-macro-2026/actions)
+[![CI](https://github.com/sm2774us/systematic_macro/actions/workflows/ci.yml/badge.svg)](https://github.com/sm2774us/systematic_macro/actions)
 [![Coverage](https://codecov.io/gh/your-org/systematic-macro-2026/branch/main/graph/badge.svg)](https://codecov.io/gh/your-org/systematic-macro-2026)
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
